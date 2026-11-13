@@ -22,3 +22,29 @@ python -c "from registration import Student, Course, register_course; print(regi
 6. Make any defect fixes in a separate Pull Request with accompanying regression tests.
 
 Some tests may fail against the supplied source. This is intentional for the exercise.
+
+## Our work (SQE Assignment 2)
+
+### Repository layout
+```
+registration.py              system under test
+REQUIREMENTS.md              SRS (source of expected results)
+tests/test_blackbox.py       ECP, BVA, decision table and state tests
+tests/test_whitebox.py       basis path, branch and MC/DC tests
+docs/blackbox_test_design.xlsx
+docs/decision_table.xlsx
+docs/cfg.png                 CFG of registration_decision()
+docs/testing_report.pdf      final report
+.github/workflows/tests.yml  CI: pytest + coverage on every push / PR
+```
+
+### Running the tests
+```bash
+python -m pip install -r requirements.txt
+python -m pytest tests/test_blackbox.py -v
+python -m pytest tests/ --cov=registration --cov-branch --cov-report=term-missing
+```
+
+Test IDs used in the code match the IDs in the design sheets (ECP-xx, BVA-xx,
+DT-xx, ST-xx, WBxx). When one pytest case covers several design IDs the id
+shows all of them, e.g. `ECP-15|BVA-13|DT-05`.

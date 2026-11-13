@@ -38,7 +38,7 @@ def prerequisites_satisfied(completed: set[str], required: set[str]) -> bool:
     """Return whether the completed-course record meets prerequisites."""
     if not required:
         return True
-    return bool(completed.intersection(required))
+    return required.issubset(completed)
 
 
 def registration_decision(student: Student, course: Course) -> str:

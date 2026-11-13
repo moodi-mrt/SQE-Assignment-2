@@ -1,0 +1,39 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Black-box tests
+        run: python -m pytest tests/test_blackbox.py -v --junitxml=reports/blackbox.xml
+
+      - name: All tests with coverage
+        if: always()
+        run: |
+          python -m pytest tests/ -v --cov=registration --cov-branch \
+            --cov-report=term-missing --cov-report=xml:reports/coverage.xml \
+            --cov-report=html:reports/htmlcov --junitxml=reports/all-tests.xml
+
+      - name: Upload test and coverage reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: reports/

@@ -31,7 +31,7 @@ def check_credit_limit(current_credits: int, new_credits: int) -> bool:
         raise ValueError("Invalid current credits")
     if not 1 <= new_credits <= 4:
         raise ValueError("Invalid course credits")
-    return current_credits + new_credits < 18
+    return current_credits + new_credits <= 18
 
 
 def prerequisites_satisfied(completed: set[str], required: set[str]) -> bool:

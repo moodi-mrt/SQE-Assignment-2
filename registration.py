@@ -78,4 +78,5 @@ def withdraw_course(student: Student, course: Course) -> bool:
         return False
     student.registered_courses.remove(course.code)
     student.current_credits -= course.credit_hours
+    course.enrolled -= 1
     return True

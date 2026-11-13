@@ -55,7 +55,7 @@ def registration_decision(student: Student, course: Course) -> str:
         return "PREREQUISITES_MISSING"
     if not check_credit_limit(student.current_credits, course.credit_hours):
         return "CREDIT_LIMIT"
-    if course.enrolled > course.capacity:
+    if course.enrolled >= course.capacity:
         return "WAITLISTED"
     return "REGISTERED"
 

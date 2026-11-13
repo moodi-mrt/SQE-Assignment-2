@@ -47,7 +47,7 @@ def registration_decision(student: Student, course: Course) -> str:
         raise ValueError("Invalid dues")
     if not 0 <= course.enrolled <= course.capacity or course.capacity < 1:
         raise ValueError("Invalid capacity or enrollment")
-    if student.outstanding_dues > 1000:
+    if student.outstanding_dues > 0:
         return "DUES_BLOCK"
     if course.code in student.registered_courses:
         return "ALREADY_REGISTERED"
